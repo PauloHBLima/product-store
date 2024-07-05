@@ -3,12 +3,13 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../interfaces/product.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { CardComponent } from '../../components/card/card.component';
 
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [CardComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
