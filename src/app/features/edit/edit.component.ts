@@ -4,8 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
+import { Product } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'app-edit',
@@ -23,12 +24,12 @@ export class EditComponent {
 
   productsService = inject(ProductsService);
   matSnackBar = inject(MatSnackBar);
-  router  = inject(Router);
+  router = inject(Router);
 
-
+  product: Product = inject(ActivatedRoute).snapshot.data['product'];
 
   form = new FormGroup({
-    title: new FormControl<string>('', {
+    title: new FormControl<string>(this.product.title, {
       nonNullable: true,
       validators: Validators.required,
     })
@@ -36,13 +37,14 @@ export class EditComponent {
 
   onSubmit() {
 
-    this.productsService.post({
+    this.productsService
+    .put(this.product.id, {
       title: this.form.controls.title.value
     })
       .subscribe(() => {
-        this.matSnackBar.open('Produto criado com sucesso!', 'Ok');
+        this.matSnackBar.open('Produto editado com sucesso!', 'Ok');
 
         this.router.navigateByUrl('/');
       })
-}
+  }
 }
