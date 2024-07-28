@@ -1,12 +1,12 @@
 {
   "products": [
     {
-      "id": "1",
-      "title": "Produto de teste"
+      "title": "aaaassssadvdsad",
+      "id": "1"
     },
     {
-      "id": "984e",
-      "title": "Paulo"
+      "isTrusted": true,
+      "id": "984e"
     },
     {
       "id": "e4ed",
@@ -29,8 +29,8 @@
       "title": "Blusa"
     },
     {
-      "id": "eb2d",
-      "title": "Moletom"
+      "title": "Moletom editado 2",
+      "id": "eb2d"
     },
     {
       "id": "9c35",
@@ -43,6 +43,14 @@
     {
       "id": "53f3",
       "title": "testeaaa"
+    },
+    {
+      "id": "aa9e",
+      "title": "fernanda"
+    },
+    {
+      "id": "8088",
+      "title": "criando novo produto"
     }
   ]
 }

@@ -1,20 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ProductsService } from '../../services/products.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FormComponent } from '../../shared/components/form/form.component';
+import { Product } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'app-create',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+    FormComponent
   ],
 
   templateUrl: './create.component.html',
@@ -24,24 +19,16 @@ export class CreateComponent {
 
   productsService = inject(ProductsService);
   matSnackBar = inject(MatSnackBar);
-  router  = inject(Router);
+  router = inject(Router);
 
-  form = new FormGroup({
-    title: new FormControl<string>('', {
-      nonNullable: true,
-      validators: Validators.required,
-    })
-  })
+  onSubmit(product: Product) {
 
-  onSubmit() {
+    this.productsService
+      .post(product)
+      .subscribe(() => {
+        this.matSnackBar.open('Produto criado com sucesso!', 'Ok');
 
-      this.productsService.post({
-        title: this.form.controls.title.value
+        this.router.navigateByUrl('/');
       })
-        .subscribe(() => {
-          this.matSnackBar.open('Produto criado com sucesso!', 'Ok');
-
-          this.router.navigateByUrl('/');
-        })
   }
 }
