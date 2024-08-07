@@ -1,30 +1,6 @@
 {
   "products": [
     {
-      "title": "aaaassssadvdsad",
-      "id": "1"
-    },
-    {
-      "isTrusted": true,
-      "id": "984e"
-    },
-    {
-      "id": "e4ed",
-      "title": "Exemplo"
-    },
-    {
-      "id": "ae42",
-      "title": "Exemplo2"
-    },
-    {
-      "id": "a9a2",
-      "title": "Camisa"
-    },
-    {
-      "id": "98e6",
-      "title": "Camisa Fernanda"
-    },
-    {
       "id": "e045",
       "title": "Blusa"
     },
@@ -35,18 +11,6 @@
     {
       "id": "9c35",
       "title": ""
-    },
-    {
-      "id": "e957",
-      "title": "testandoooo"
-    },
-    {
-      "id": "53f3",
-      "title": "testeaaa"
-    },
-    {
-      "id": "aa9e",
-      "title": "fernanda"
     },
     {
       "id": "8088",

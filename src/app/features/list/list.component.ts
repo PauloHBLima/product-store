@@ -1,31 +1,12 @@
+import { ConfirmationDialogService } from './../../shared/services/confirmation-dialog.service';
 import { Component, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../interfaces/product.interface';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CardComponent } from '../../components/card/card.component';
 import { Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 
-
-@Component({
-  selector: 'app-confirmation-dialog',
-  template: `
-<h2 mat-dialog-title>Delete file</h2>
-<mat-dialog-content>
-  Would you like to delete cat.jpeg?
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
-</mat-dialog-actions>
-  `,
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatDialogModule,
-  ],
-})
-export class ConfirmationDialogComponent { }
 
 @Component({
   selector: 'app-list',
@@ -37,12 +18,12 @@ export class ConfirmationDialogComponent { }
 export class ListComponent {
   products: Product[] = [];
 
-  ProductsService = inject(ProductsService);
+  productsService = inject(ProductsService);
   router = inject(Router);
-  MatDialog = inject(MatDialog);
+  confirmationDialogService = inject(ConfirmationDialogService);
 
   ngOnInit() {
-    this.ProductsService.getAll().subscribe((products) => {
+    this.productsService.getAll().subscribe((products) => {
       this.products = products;
     })
   }
@@ -52,11 +33,15 @@ export class ListComponent {
   }
 
   onDelete(product: Product) {
-    this.MatDialog.open(ConfirmationDialogComponent)
-      .afterClosed()
-      .subscribe((data) => {
-        console.log('afterClosed', data);
-      })
+    this.confirmationDialogService
+    .openDialog()
+    .pipe(filter(answer => answer === true))
+    .subscribe(() => {
+        this.productsService.delete(product.id).subscribe(() => {
+          this.productsService.getAll().subscribe((products) => {
+            this.products = products;
+          })
+        });
+    })
   }
-
 }
